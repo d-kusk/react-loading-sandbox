@@ -7,17 +7,14 @@ const DogImage: React.FC = () => {
   const [ path, setPath ] = useState("")
 
   useEffect(() => {
-    const URL = 'https://dog.ceo/api/breeds/image/random'
-    // TODO 関数化する
-    axios
-    .get(URL)
-    .then((response: any) => {
+    const f = async () => {
+      const response = await axios.get('https://dog.ceo/api/breeds/image/random')
+      .catch(err => {
+        return err.response
+      });
       setPath(response.data.message)
-    })
-    .catch((error: unknown) => {
-      console.error(error);
-      return
-    })
+    }
+    f();
   }, [])
 
   return (
